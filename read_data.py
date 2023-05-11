@@ -16,11 +16,22 @@ lon = data['longitude'].to_numpy()
 print(lat)
 print(lon)
 
+# cut off the lattiude and longitude 
+lat[lon<-140]='nan'
+lon[lon<-140]='nan'
+
+print(lat)
+
 fig = plt.figure()
 plt.scatter(lat,lon,s=1.0)
 
-street_map = gpd.read_file('Roads_-_All.shp')
+street_map = gpd.read_file('s77p41.shp')
 fig, ax = plt.subplots(figsize=(15,15))
-street_map.plot(ax=ax)
+street_map.plot(ax=ax,color=[0.9,0.9,0.9])
+
+river_map = gpd.read_file('Inland_Creek_Combining_Designation.shp')
+river_map.plot(ax=ax,color='blue')
+
+plt.scatter(lon,lat,color='r',s=2.0)
 
 plt.show()
