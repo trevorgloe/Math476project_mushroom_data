@@ -6,15 +6,20 @@ import matplotlib.pyplot as plt
 import descartes
 import geopandas as gpd
 from shapely.geometry import Point, Polygon
+import sys
 
-data = pd.read_csv('observations-319470.csv')
+# data_dir = sys.path.append(../)
+
+data = pd.read_csv('../mushroom_proj_data/observations-319470.csv')
 print(data)
 
 lat = data['latitude'].to_numpy()
 lon = data['longitude'].to_numpy()
+species = data['scientific_name'].to_numpy()
 
-print(lat)
-print(lon)
+# print(lat)
+# print(lon)
+print(species)
 
 # cut off the lattiude and longitude 
 lat[lon<-140]='nan'
@@ -29,8 +34,11 @@ street_map = gpd.read_file('s77p41.shp')
 fig, ax = plt.subplots(figsize=(15,15))
 street_map.plot(ax=ax,color=[0.9,0.9,0.9])
 
-river_map = gpd.read_file('Inland_Creek_Combining_Designation.shp')
+river_map = gpd.read_file('../mushroom_proj_data/NHD_Major_Rivers_and_Creeks/Major_Rivers_and_Creeks.shp')
 river_map.plot(ax=ax,color='blue')
+
+river_map2 = gpd.read_file('../mushroom_proj_data/NHD_Major_Lakes_and_Reservoirs/Major_Lakes_and_Reservoirs.shp')
+river_map2.plot(ax=ax,color='blue')
 
 plt.scatter(lon,lat,color='r',s=2.0)
 
