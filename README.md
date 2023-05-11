@@ -6,3 +6,10 @@ Repository for use in the Math 476 final project analyzing mushroom observation 
 - Trevor Loe
 - Jaxon Greene
 - Connor Fletcher
+
+## Libraries used
+- numpy
+- pandas
+- matplotlib
+- descartes
+- geopandas
