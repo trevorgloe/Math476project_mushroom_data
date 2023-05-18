@@ -27,7 +27,7 @@ species = data['scientific_name'].to_numpy()
 lat[lon<-140]='nan'
 lon[lon<-140]='nan'
 
-# add colors corresponding to the species
+# look at the species
 num_fungi = np.count_nonzero(species =='Fungi')
 
 print(len(np.unique(species)))
@@ -54,10 +54,10 @@ street_map = gpd.read_file(os.path.join(datapath,'s77p41.shp'))
 fig, ax = plt.subplots(figsize=(15,15))
 street_map.plot(ax=ax,color=[0.9,0.9,0.9])
 
-river_map = gpd.read_file(os.path.join(datapath,'NHD_Major_Rivers_and_Creeks/Major_Rivers_and_Creeks.shp'))
+river_map = gpd.read_file(os.path.join(datapath,os.path.join('NHD_Major_Rivers_and_Creeks','Major_Rivers_and_Creeks.shp')))
 river_map.plot(ax=ax,color='blue')
 
-river_map2 = gpd.read_file(os.path.join(datapath,'NHD_Major_Lakes_and_Reservoirs/Major_Lakes_and_Reservoirs.shp'))
+river_map2 = gpd.read_file(os.path.join(datapath,os.path.join('NHD_Major_Lakes_and_Reservoirs','Major_Lakes_and_Reservoirs.shp')))
 river_map2.plot(ax=ax,color='blue')
 
 plt.scatter(lon,lat,color='r',s=2.0)
