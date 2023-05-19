@@ -17,13 +17,20 @@ data = pd.read_csv('observations-319470.csv')
 
 lat_n = data['latitude'].to_numpy()
 lon_n = data['longitude'].to_numpy()
+
+lat_n[lon_n<-140]='nan'
+lon_n[lon_n<-140]='nan'
+lat_n[lon_n>-110]='nan'
+lon_n[lon_n>-110]='nan'
+
 lat = lat_n[np.logical_not(np.isnan(lat_n))] # remove nans
 lon = lon_n[np.logical_not(np.isnan(lon_n))]
+print(lon)
 # lat[lon<-140]='nan'
 # lon[lon<-140]='nan'
 
 #latlon = data[['latitude','longitude']].to_numpy()
-latlon = np.vstack((lat, lon))
+latlon = np.vstack((lat, lon)).T
 print(latlon)
 #print(lat.shape)
 
@@ -32,6 +39,7 @@ def opt_reps(X, k, assign):
   reps = np.zeros((k, d))
   for i in range(k):
     in_i = [j for j in range(n) if assign[j] == i]
+    print(in_i)
     reps[i,:]= np.sum(X[in_i,:],axis=0) / len(in_i)
   return reps
 
@@ -56,6 +64,8 @@ def mmids_kmeans(X, k, maxiter=10):
     assign = opt_clust(X, k, reps)
   return assign
   
-assign = mmids_kmeans(latlon, 5)
-plt.scatter(latlon[:,0], latlon[:,1], c=assign)
+assign = mmids_kmeans(latlon,4)
+print(latlon)
+print(assign)
+plt.scatter(latlon[:,1], latlon[:,0], c=assign, s=2)
 plt.show()
