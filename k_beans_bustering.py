@@ -6,6 +6,8 @@ import scipy.sparse
 import networkx as nx
 import matplotlib.pyplot as plt
 import os
+import descartes
+import geopandas as gpd
 #np.seterr(divide='ignore', invalid='ignore')
 rng = default_rng(12345)
 
@@ -67,5 +69,8 @@ def mmids_kmeans(X, k, maxiter=10):
 assign = mmids_kmeans(latlon,4)
 print(latlon)
 print(assign)
+street_map = gpd.read_file(os.path.join(datapath,'s77p41.shp'))
+fig, ax = plt.subplots(figsize=(15,15))
+street_map.plot(ax=ax,color=[0.9,0.9,0.9])
 plt.scatter(latlon[:,1], latlon[:,0], c=assign, s=2)
 plt.show()
