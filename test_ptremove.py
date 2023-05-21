@@ -30,4 +30,15 @@ lon[lon<-140]='nan'
 
 
 boundary_path = os.path.join(datapath,'s77p41.shp')
-remove_badpts.getgudpts(lat,lon,boundary_path)
+new_lat,new_lon = remove_badpts.getgudpts(lat,lon,boundary_path)
+
+street_map = gpd.read_file(os.path.join(datapath,'s77p41.shp'))
+
+fig, ax = plt.subplots(figsize=(15,15))
+
+street_map.plot(ax=ax,color=[0.9,0.9,0.9])
+
+plt.scatter(lon,lat,color='r',s=2)
+plt.scatter(new_lon,new_lat,color='b',s=2)
+
+plt.show()
