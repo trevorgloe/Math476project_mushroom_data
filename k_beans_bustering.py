@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import os
 import descartes
 import geopandas as gpd
+import remove_badpts
+
 #np.seterr(divide='ignore', invalid='ignore')
 rng = default_rng(12345)
 
@@ -25,11 +27,17 @@ lon_n[lon_n<-140]='nan'
 lat_n[lon_n>-110]='nan'
 lon_n[lon_n>-110]='nan'
 
-lat = lat_n[np.logical_not(np.isnan(lat_n))] # remove nans
-lon = lon_n[np.logical_not(np.isnan(lon_n))]
-print(lon)
+bad_lat = lat_n[np.logical_not(np.isnan(lat_n))] # remove nans
+bad_lon = lon_n[np.logical_not(np.isnan(lon_n))]
+print(bad_lon)
 # lat[lon<-140]='nan'
 # lon[lon<-140]='nan'
+
+# remove points over the ocean
+boundary_path = os.path.join(datapath,'s77p41.shp')
+lat,lon = remove_badpts.getgudpts(bad_lat,bad_lon,boundary_path)
+
+
 
 #latlon = data[['latitude','longitude']].to_numpy()
 latlon = np.vstack((lat, lon)).T
@@ -66,7 +74,7 @@ def mmids_kmeans(X, k, maxiter=10):
     assign = opt_clust(X, k, reps)
   return assign
   
-assign = mmids_kmeans(latlon,4)
+assign = mmids_kmeans(latlon,20)
 print(latlon)
 print(assign)
 street_map = gpd.read_file(os.path.join(datapath,'s77p41.shp'))
