@@ -74,5 +74,8 @@ plt.ylabel('Latitude (deg)', fontsize=14, fontweight='bold')
 ## plot slo as a green x
 plt.scatter(-120.6625,35.3050,color='g',marker='x',label='Cal Poly Campus')
 plt.legend()
+plt.xlim(-121.3,-120.65)
+plt.ylim(35.1,35.85)
+plt.savefig('data_var.png',transparent=True)
 
 plt.show()

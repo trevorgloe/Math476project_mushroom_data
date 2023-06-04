@@ -73,6 +73,7 @@ plt.scatter(-120.6625,35.3050,color='g',marker='x',label='Cal Poly Campus')
 plt.legend()
 plt.xlim(-121.295,-120.4)
 plt.ylim(34.98,35.842)
+plt.savefig('unfiltered_trans.png', transparent=True)
 
 
 ## second plot of just good points
@@ -107,5 +108,6 @@ plt.scatter(-120.6625,35.3050,color='g',marker='x',label='Cal Poly Campus')
 plt.legend()
 plt.xlim(-121.295,-120.4)
 plt.ylim(34.98,35.842)
+plt.savefig('filtered_trans.png',transparent=True)
 
 plt.show()
